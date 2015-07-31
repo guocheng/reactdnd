@@ -1,14 +1,7 @@
 var React = require('react');
-
-var Test = React.createClass({
-    render: function () {
-        return (
-            <p> works </p>
-        );
-    }
-});
+var Container = require('./Container');
 
 React.render(
-    <Test />,
+    <Container />,
     document.getElementById('app')
 );

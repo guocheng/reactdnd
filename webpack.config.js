@@ -1,33 +1,35 @@
-var webpack = require('webpack');
-var path = require('path');
+var webpack = require("webpack"),
+    path = require("path");
 
 module.exports = {
-    devtool: 'eval',
-    entry: {
-        javascript: [
-            'webpack-dev-server/client?http://127.0.0.1:3000',
-            'webpack/hot/only-dev-server',
-            './js/index.js'
-        ]
-    },
+    entry: "./js/index.js",
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, "build"),
+        filename: "bundle.js",
+        sourceMapFileName: "bundle.js.map"
     },
     module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                loaders: ['react-hot', 'babel-loader'],
-                exclude: /node_modules/
-            }
-        ]
+       loaders: [
+           {
+               test: /\.js$/,
+               loaders: ["babel"],
+               exclude: /node_modules/
+           }
+       ]
     },
-    resolve: {
-      extensions: ['', '.js', '.jsx']
-    },
+    devtool: "source-map",
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        /* new webpack.optimize.OccurenceOrderPlugin(), */
+        new webpack.DefinePlugin({
+            "process.env": {
+                "NODE_ENV": JSON.stringify("production")
+            }
+        })/* ,
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
+            },
+            mangle: false
+        }) */
     ]
 };
